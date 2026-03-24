@@ -1,28 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - HotelIT</title>
+    <title>Contact Us — HotelIT</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
-        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; background: linear-gradient(135deg, #f3f7ff, #ffe9de 55%, #fff8e6);}
-        .topbar {background: linear-gradient(135deg, #2c3e50, #267cb3); color:#fff; padding:18px; text-align:center; font-size:1.3rem; font-weight:700;}
-        .container {max-width:920px; margin:30px auto; background:#fff; border-radius:15px; box-shadow:0 10px 22px rgba(0,0,0,0.12); padding:28px; border-left:5px solid #f39c12;}
-        h1 {color:#1f3258; margin-bottom:8px;}
-        .info {margin:16px 0; line-height:1.65; font-size:1rem; color:#2f3f62;}
-        .back {display:inline-block; margin-top:15px; text-decoration:none; color:#fff; background:#2c3e50; padding:10px 15px; border-radius:7px;}
+        :root {
+            --navy: #0f1b2d;
+            --navy2: #162338;
+            --navy3: #1d2e45;
+            --gold: #f5c842;
+            --white: #ffffff;
+            --offwhite: #e8edf5;
+            --muted: #8a9bb5;
+            --border: rgba(245, 200, 66, 0.15);
+            --border2: rgba(255, 255, 255, 0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--navy);
+            color: var(--offwhite);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: var(--navy2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            height: 56px;
+            border-bottom: 1px solid var(--border2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeDown 0.6s ease both;
+        }
+
+        .logo {
+            
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--offwhite);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 1;
+            color: var(--white);
+        }
+
+        .nav-links a.active {
+            font-weight: 500;
+        }
+
+        .hero {
+            background: var(--navy2);
+            border-bottom: 1px solid var(--border2);
+            padding: 64px 48px 56px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.7s 0.1s ease both;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(245, 200, 66, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            max-width: 440px;
+            line-height: 1.75;
+            font-weight: 300;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border2);
+            animation: fadeUp 0.8s 0.25s ease both;
+        }
+
+        .panel {
+            background: var(--navy);
+            padding: 52px 48px;
+        }
+
+        .panel-label {
+            font-size: 0.66rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 22px;
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border2);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .ci-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: var(--navy3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        .ci-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        .ci-value {
+            font-size: 0.95rem;
+            color: var(--offwhite);
+            line-height: 1.65;
+        }
+
+        .ci-value a {
+            color: var(--offwhite);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .ci-value a:hover {
+            color: var(--gold);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 200, 66, 0.08);
+            border: 1px solid rgba(245, 200, 66, 0.25);
+            color: var(--gold);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 7px 14px;
+            border-radius: 100px;
+            margin-bottom: 32px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        .hours-table {
+            background: var(--navy2);
+            border: 1px solid var(--border2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 20px;
+            border-bottom: 1px solid var(--border2);
+            font-size: 0.86rem;
+            transition: background 0.2s;
+        }
+
+        .hours-row:hover {
+            background: var(--navy3);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row.today {
+            background: rgba(245, 200, 66, 0.06);
+            border-left: 2px solid var(--gold);
+        }
+
+        .hday {
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .htime {
+            color: var(--offwhite);
+            font-weight: 400;
+        }
+
+        .hclosed {
+            color: #4a5568;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .map-cta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--navy2);
+            border: 1px solid var(--border2);
+            border-radius: 4px;
+            padding: 18px 22px;
+            text-decoration: none;
+            transition: border-color 0.25s, background 0.25s;
+        }
+
+        .map-cta:hover {
+            border-color: var(--border);
+            background: var(--navy3);
+        }
+
+        .map-cta-icon {
+            width: 38px;
+            height: 38px;
+            background: rgba(245, 200, 66, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .map-cta-text {
+            flex: 1;
+        }
+
+        .map-cta-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .map-cta-value {
+            font-size: 0.84rem;
+            color: var(--offwhite);
+        }
+
+        .map-cta-arrow {
+            color: var(--gold);
+            font-size: 1rem;
+            opacity: 0.6;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .map-cta:hover .map-cta-arrow {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        .bottom-cta {
+            background: var(--gold);
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            animation: fadeUp 0.8s 0.4s ease both;
+        }
+
+        .bottom-cta-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.3;
+        }
+
+        .bottom-cta-text strong {
+            font-weight: 600;
+        }
+
+        .cta-btn {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--navy);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 15px 30px;
+            border-radius: 3px;
+            transition: background 0.25s, gap 0.25s;
+        }
+
+        .cta-btn:hover {
+            background: var(--navy2);
+            gap: 18px;
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        @media(max-width:768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 44px 20px 36px;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 36px 20px;
+            }
+
+            .bottom-cta {
+                flex-direction: column;
+                text-align: center;
+                padding: 36px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="topbar">HotelIT — Contact Us</div>
-    <div class="container">
-        <h1>Get in Touch</h1>
-        <p class="info">For bookings, inquiries, or tours of our facilities, reach out to us through any of the channels below.</p>
-        <p class="info"><strong>Phone:</strong> +63 912 345 6789</p>
-        <p class="info"><strong>Email:</strong> contact@hotelit.com</p>
-        <p class="info"><strong>Address:</strong> Alabang-Zapote Road, Pamplona Tres, Las Pinas City, Metro Manila</p>
-        <p class="info"><strong>Office Hours:</strong> Monday–Saturday, 9:00 AM – 7:00 PM</p>
-        <a href="index.html" class="back">← Back to Home</a>
+    <nav>
+        <a href="index.html" class="logo">Hotel<span>IT</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="e-hotel.html">Booking</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+    <section class="hero">
+        <p class="hero-eyebrow">Luxury Stay · City Center · Fine Dining</p>
+        <h1>Get in <em>Touch</em></h1>
+        <p class="hero-sub">For bookings, inquiries, or tours of our facilities — reach out through any of the channels
+            below.</p>
+    </section>
+    <div class="content">
+        <div class="panel">
+            <p class="panel-label">Contact Channels</p>
+            <div class="contact-item">
+                <div class="ci-icon">✆</div>
+                <div>
+                    <p class="ci-label">Phone</p>
+                    <p class="ci-value"><a href="tel:+639123456789">+63 912 345 6789</a></p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="ci-icon">✉</div>
+                <div>
+                    <p class="ci-label">Email</p>
+                    <p class="ci-value"><a href="mailto:contact@hotelit.com">contact@hotelit.com</a></p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="ci-icon">⌖</div>
+                <div>
+                    <p class="ci-label">Address</p>
+                    <p class="ci-value">Alabang-Zapote Road<br>Pamplona Tres, Las Piñas City<br>Metro Manila</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <p class="panel-label">Office Hours</p>
+            <div class="status-pill"><span class="status-dot"></span>Open Now</div>
+            <div class="hours-table">
+                <div class="hours-row"><span class="hday">Monday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Tuesday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Wednesday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Thursday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Friday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Saturday</span><span class="htime">9:00 AM – 7:00 PM</span>
+                </div>
+                <div class="hours-row"><span class="hday">Sunday</span><span class="hclosed">Closed</span></div>
+            </div>
+            <a class="map-cta" href="https://maps.google.com/?q=Alabang-Zapote+Road+Pamplona+Tres+Las+Pinas+City"
+                target="_blank">
+                <div class="map-cta-icon">⌖</div>
+                <div class="map-cta-text">
+                    <p class="map-cta-label">Location</p>
+                    <p class="map-cta-value">View on Google Maps</p>
+                </div>
+                <span class="map-cta-arrow">→</span>
+            </a>
+        </div>
     </div>
+    <div class="bottom-cta">
+        <p class="bottom-cta-text">Ready to book your stay or <strong>schedule a tour?</strong></p>
+        <a href="mailto:contact@hotelit.com" class="cta-btn">Send us a message →</a>
+    </div>
+    <script>
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const today = days[new Date().getDay()];
+        document.querySelectorAll('.hours-row').forEach(row => {
+            row.classList.remove('today');
+            if (row.querySelector('.hday')?.textContent === today) row.classList.add('today');
+        });
+    </script>
 </body>
+
 </html>
